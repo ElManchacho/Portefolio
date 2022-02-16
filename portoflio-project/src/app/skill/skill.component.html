@@ -1,0 +1,7 @@
+<h1>{{this.skill.title}}</h1>
+
+<li *ngFor="let project of this.skill.projects">
+    <h2>{{project.name}}</h2>
+    <p>{{project.desc}}</p>
+    <a>{{project.ulr}}</a>
+</li>
