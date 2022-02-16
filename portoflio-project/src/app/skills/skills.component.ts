@@ -1,21 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SkillService } from '../services/skill/skill.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
-export class SkillsComponent implements OnInit {
+export class SkillsComponent implements OnInit, OnDestroy {
   
-  skillsList = [
-    {title:"Skill 1",projects:[{name:"Project1",desc:"Desc",url:""}]},
-    {title:"Skill 2",projects:[{name:"Project1",desc:"Desc",url:""}]},
-    {title:"Skill 3",projects:[{name:"Project1",desc:"Desc",url:""}]}
-  ]
+  public skillsList:any
 
-  constructor() { }
+  private allSkillsSubscribtion: Subscription = new Subscription  ;
+
+  constructor(private skillService:SkillService) { }
+  
 
   ngOnInit(): void {
+     this.allSkillsSubscribtion = this.skillService.getAllSkills().subscribe(res=>{
+       console.log(res)
+     })
+  }
+
+  ngOnDestroy(): void {
+    this.allSkillsSubscribtion.unsubscribe()
   }
 
 }
