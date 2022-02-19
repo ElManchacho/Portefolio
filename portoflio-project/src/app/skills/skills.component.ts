@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SkillService } from '../services/skill/skill.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Skill } from 'src/class/skills';
 
 @Component({
   selector: 'app-skills',
@@ -8,19 +9,22 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent implements OnInit, OnDestroy {
-  
-  public skillsList:any
 
-  private allSkillsSubscribtion: Subscription = new Subscription  ;
+  public skillsList : Skill[] = []
 
-  constructor(private skillService:SkillService) { }
-  
+  private allSkillsSubscribtion: Subscription = new Subscription;
+
+  constructor(private skillService: SkillService) { }
 
   ngOnInit(): void {
-     this.allSkillsSubscribtion = this.skillService.getAllSkills().subscribe(res=>{
-       console.log(res)
-     })
-  }
+    this.skillsList = []
+    this.allSkillsSubscribtion = this.skillService.getAllSkills().subscribe(skills=>{
+      this.skillsList = skills
+      skills.forEach(skill=>{
+        console.log(skill)
+      })
+    })
+  };
 
   ngOnDestroy(): void {
     this.allSkillsSubscribtion.unsubscribe()
