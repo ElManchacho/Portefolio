@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Skill } from 'src/class/skills';
 import { Observable } from 'rxjs';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { doc, getDocs, getFirestore } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,18 @@ export class SkillService {
   constructor(private firestore: Firestore) { 
     const collec = collection(firestore, this.route);
     this.skillCollection = collectionData(collec);
+  }
+
+  async test(){
+    let skillList: Skill[] = []
+    const db = getFirestore();
+    const querySnapshot = await getDocs(collection(db, "skills"));
+    querySnapshot.forEach(doc => {
+      const data = doc.data() as Skill
+      const id = doc.id
+      skillList.push(<Skill>{ ...data, id: id })
+    });
+    return skillList
   }
 
   getAllSkills(){

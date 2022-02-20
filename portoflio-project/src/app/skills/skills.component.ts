@@ -18,12 +18,13 @@ export class SkillsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.skillsList = []
+    this.skillService.test();/*
     this.allSkillsSubscribtion = this.skillService.getAllSkills().subscribe(skills=>{
       this.skillsList = skills
       skills.forEach(skill=>{
         console.log(skill)
       })
-    })
+    })*/
   };
 
   ngOnDestroy(): void {
