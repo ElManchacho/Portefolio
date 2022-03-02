@@ -21,13 +21,13 @@ export class SkillService {
 
   async test(){
     let skillList: Skill[] = []
-    const db = getFirestore();
+    /*const db = getFirestore();
     const querySnapshot = await getDocs(collection(db, "skills"));
     querySnapshot.forEach(doc => {
       const data = doc.data() as Skill
       const id = doc.id
       skillList.push(<Skill>{ ...data, id: id })
-    });
+    });*/
     return skillList
   }
 
